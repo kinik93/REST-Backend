@@ -1,4 +1,5 @@
 /home/kinik/IdeaProjects/Backend/src/main/java/model/ExternalUser.java
+/home/kinik/IdeaProjects/Backend/src/main/java/dao/UserDao.java
 /home/kinik/IdeaProjects/Backend/src/main/java/model/Video.java
 /home/kinik/IdeaProjects/Backend/src/main/java/rest/services/ResponseFilter.java
 /home/kinik/IdeaProjects/Backend/src/main/java/model/VideoLike.java

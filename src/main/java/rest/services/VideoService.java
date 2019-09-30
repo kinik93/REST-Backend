@@ -1,9 +1,13 @@
 package rest.services;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+
+import dao.UserDao;
+import model.User;
 import model.Video;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -13,6 +17,9 @@ import com.google.gson.JsonParser;
 
 @Path("/services/videos")
 public class VideoService {
+
+    @Inject
+    private UserDao userDao;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -27,7 +34,7 @@ public class VideoService {
     @Path("/prova")
     @Produces(MediaType.TEXT_PLAIN)
     public String prova(){
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory("myServiceUnit");
+        /*EntityManagerFactory factory = Persistence.createEntityManagerFactory("myServiceUnit");
         EntityManager entityManager = factory.createEntityManager();
 
 
@@ -42,7 +49,12 @@ public class VideoService {
         entityManager.getTransaction().commit();
 
         entityManager.close();
-        factory.close();
+        factory.close();*/
+
+        User tmp = new User();
+        tmp.setUsername("ciao");
+        tmp.setUuid("mondo");
+        userDao.save(tmp);
 
         return "ciao";
     }

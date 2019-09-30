@@ -1,11 +1,12 @@
+model/Channel.class
+model/ExternalUser.class
 rest/services/Ping.class
 model/Video.class
 model/VideoComment.class
 rest/BackendApplication.class
 model/User.class
 model/VideoLike.class
-model/Channel.class
+dao/UserDao.class
 rest/services/ResponseFilter.class
 model/LoggedUser.class
-model/ExternalUser.class
 rest/services/VideoService.class
