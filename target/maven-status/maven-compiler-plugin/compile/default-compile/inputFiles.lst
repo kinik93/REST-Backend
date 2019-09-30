@@ -1,0 +1,11 @@
+/home/kinik/IdeaProjects/Backend/src/main/java/model/ExternalUser.java
+/home/kinik/IdeaProjects/Backend/src/main/java/model/Video.java
+/home/kinik/IdeaProjects/Backend/src/main/java/rest/services/ResponseFilter.java
+/home/kinik/IdeaProjects/Backend/src/main/java/model/VideoLike.java
+/home/kinik/IdeaProjects/Backend/src/main/java/model/User.java
+/home/kinik/IdeaProjects/Backend/src/main/java/model/LoggedUser.java
+/home/kinik/IdeaProjects/Backend/src/main/java/model/Channel.java
+/home/kinik/IdeaProjects/Backend/src/main/java/model/VideoComment.java
+/home/kinik/IdeaProjects/Backend/src/main/java/rest/services/Ping.java
+/home/kinik/IdeaProjects/Backend/src/main/java/rest/services/VideoService.java
+/home/kinik/IdeaProjects/Backend/src/main/java/rest/BackendApplication.java
