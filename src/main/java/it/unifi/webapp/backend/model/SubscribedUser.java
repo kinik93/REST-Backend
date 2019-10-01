@@ -2,7 +2,7 @@ package it.unifi.webapp.backend.model;
 
 import java.util.List;
 
-public class LoggedUser extends User{
+public class SubscribedUser extends User{
 
     private String nickname;
     private String email;
