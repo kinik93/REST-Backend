@@ -15,4 +15,5 @@
 !.vscode/extensions.json
 .history/*
 
-target/
+# Maven
+.target/
