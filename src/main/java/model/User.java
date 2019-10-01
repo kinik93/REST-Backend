@@ -12,6 +12,8 @@ public class User {
 
     private String uuid;
 
+    private String username;
+
     public String getUuid() {
         return uuid;
     }
@@ -28,5 +30,5 @@ public class User {
         this.username = username;
     }
 
-    private String username;
+
 }

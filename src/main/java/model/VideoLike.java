@@ -1,12 +1,21 @@
 package model;
+import javax.persistence.*;
 import java.sql.Timestamp;
 
+@Entity
+@Table(name="VideoLike")
 public class VideoLike {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int likeId;
+
 
     private Timestamp commitTime;
     private User liker;
     private Video video;
-    private String likeId;
+    private String uuid;
+
 
     public Timestamp getCommitTime() {
         return commitTime;
@@ -20,7 +29,11 @@ public class VideoLike {
         return video;
     }
 
-    public String getLikeId(){
-        return likeId;
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 }

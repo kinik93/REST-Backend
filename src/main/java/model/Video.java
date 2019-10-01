@@ -1,8 +1,16 @@
 package model;
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
+@Table(name = "Video")
 public class Video {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int videoId;
+
+    private String uuid;
 
     private String name;
     private List<VideoComment> comments;
@@ -15,6 +23,14 @@ public class Video {
     public Video(String name, String videoDescriptor) {
         this.name = name;
         this.videoDescriptor = videoDescriptor;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
     public String getName() {
