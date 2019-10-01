@@ -1,4 +1,4 @@
-package rest.services;
+package it.unifi.webapp.backend.rest.services.services;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;

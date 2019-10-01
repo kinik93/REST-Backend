@@ -1,4 +1,4 @@
-package model;
+package it.unifi.webapp.backend.model;
 
 import javax.persistence.*;
 

@@ -1,26 +1,26 @@
-package model;
+package it.unifi.webapp.backend.model;
 import java.sql.Timestamp;
 
-public class VideoLike {
+public class VideoComment {
 
     private Timestamp commitTime;
-    private User liker;
+    private User writer;
     private Video video;
-    private String likeId;
+    private String commentText;
 
     public Timestamp getCommitTime() {
         return commitTime;
     }
 
     public User getWriter() {
-        return liker;
+        return writer;
     }
 
     public Video getVideo() {
         return video;
     }
 
-    public String getLikeId(){
-        return likeId;
+    public String getCommentText() {
+        return commentText;
     }
 }

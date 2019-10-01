@@ -1,8 +1,7 @@
-package dao;
+package it.unifi.webapp.backend.dao;
 
-import model.User;
+import it.unifi.webapp.backend.model.User;
 
-import javax.enterprise.inject.Produces;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -13,7 +12,9 @@ public class UserDao {
 
     public void save(User u){
         try{
+            em.getTransaction().begin();
             em.persist(u);
+            em.getTransaction().commit();
         }
         catch (Exception e){
 
