@@ -9,6 +9,8 @@ import it.unifi.webapp.backend.model.Video;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.util.UUID;
+
 @Path("/services/videos")
 public class VideoService {
 
@@ -47,7 +49,7 @@ public class VideoService {
 
         User tmp = new User();
         tmp.setUsername("ciao");
-        tmp.setUuid("mondo");
+        tmp.setUuid(UUID.randomUUID().toString());
         userDao.save(tmp);
 
         return "ciao";
