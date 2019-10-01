@@ -1,19 +1,13 @@
-package rest.services;
+package it.unifi.webapp.backend.rest.services.services;
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
-import dao.UserDao;
-import model.User;
-import model.Video;
+import it.unifi.webapp.backend.dao.UserDao;
+import it.unifi.webapp.backend.model.User;
+import it.unifi.webapp.backend.model.Video;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
 @Path("/services/videos")
 public class VideoService {

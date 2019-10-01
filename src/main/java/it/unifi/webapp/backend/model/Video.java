@@ -1,6 +1,6 @@
-package model;
-import javax.persistence.*;
+package it.unifi.webapp.backend.model;
 import java.util.List;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "Video")

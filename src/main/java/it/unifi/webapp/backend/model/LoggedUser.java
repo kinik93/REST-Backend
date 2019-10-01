@@ -1,18 +1,9 @@
-package model;
+package it.unifi.webapp.backend.model;
 
-import javax.persistence.*;
 import java.util.List;
 
-@Entity
-@Table(name = "SubscribedUSer")
-public class SubscribedUser extends User{
+public class LoggedUser extends User{
 
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
-    private String uuid;
     private String nickname;
     private String email;
     private String password;
@@ -37,14 +28,6 @@ public class SubscribedUser extends User{
 
     public List<Channel> getFollowedChannel() {
         return followedChannel;
-    }
-
-    public String getUuid() {
-        return uuid;
-    }
-
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
     }
 
 }

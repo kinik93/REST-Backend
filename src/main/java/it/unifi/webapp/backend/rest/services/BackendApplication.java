@@ -1,4 +1,4 @@
-package rest;
+package it.unifi.webapp.backend.rest.services;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.ws.rs.*;

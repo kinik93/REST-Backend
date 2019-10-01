@@ -1,4 +1,4 @@
-package rest.services;
+package it.unifi.webapp.backend.rest.services.services;
 
 import java.io.IOException;
 import javax.ws.rs.container.ContainerRequestContext;
