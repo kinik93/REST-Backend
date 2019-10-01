@@ -1,7 +1,11 @@
 package it.unifi.webapp.backend.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.List;
 
+@Entity
+@Table(name = "SubscribedUser")
 public class SubscribedUser extends User{
 
     private String nickname;
