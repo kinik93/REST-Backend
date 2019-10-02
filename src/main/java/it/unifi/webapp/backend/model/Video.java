@@ -15,9 +15,7 @@ public class Video {
     @OneToMany
     private VideoLike likes;
 
-
-    @OneToMany
-    private VideoComment comments;
+    
 //    private List<VideoLike> likes;
 //
 //    //This is something like a payload for our purposes
