@@ -4,18 +4,18 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "Video")
-public class Video {
+public class Video extends BaseEntity{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int videoId;
-
-    private String uuid;
 
     private String name;
 
     @OneToMany
-    private VideoComment comments;
+    private List<VideoComment> comments;
+
+    @OneToMany
+    private List<VideoLike> likes;
+
+
 //    private List<VideoLike> likes;
 //
 //    //This is something like a payload for our purposes
@@ -26,30 +26,23 @@ public class Video {
         this.name = name;
         this.videoDescriptor = videoDescriptor;
     }
-//
-//    public String getUuid() {
-//        return uuid;
-//    }
-//
-//    public void setUuid(String uuid) {
-//        this.uuid = uuid;
-//    }
-//
-//    public String getName() {
-//        return name;
-//    }
-//
-//    public List<VideoComment> getComments() {
-//        return comments;
-//    }
-//
-//    public List<VideoLike> getLikes() {
-//        return likes;
-//    }
-//
-//    public String getVideoDescriptor() {
-//        return videoDescriptor;
-//    }
+
+
+    public String getName() {
+        return name;
+    }
+
+    /*public List<VideoComment> getComments() {
+        return comments;
+    }
+
+    public List<VideoLike> getLikes() {
+        return likes;
+    }*/
+
+    public String getVideoDescriptor() {
+        return videoDescriptor;
+    }
 
 
 }
