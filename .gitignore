@@ -15,4 +15,4 @@
 !.vscode/extensions.json
 .history/*
 
-
+target/
