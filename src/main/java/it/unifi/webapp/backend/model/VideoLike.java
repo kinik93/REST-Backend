@@ -8,7 +8,6 @@ import java.sql.Timestamp;
 public class VideoLike {
 
 
-
     private Timestamp commitTime;
 
     @ManyToOne

@@ -16,10 +16,14 @@ public class Video {
     private VideoLike likes;
 
 
-    //This is something like a payload for our purposes
+    @OneToMany
+    private VideoComment comments;
+//    private List<VideoLike> likes;
+//
+//    //This is something like a payload for our purposes
     private String videoDescriptor;
-
-
+//
+//
     public Video(String name, String videoDescriptor) {
         this.name = name;
         this.videoDescriptor = videoDescriptor;
