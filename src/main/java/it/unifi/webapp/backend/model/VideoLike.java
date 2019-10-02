@@ -7,14 +7,17 @@ import java.sql.Timestamp;
 @Table(name="VideoLike")
 public class VideoLike {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int likeId;
 
 
     private Timestamp commitTime;
+
+    @ManyToOne
     private User liker;
+
+    @ManyToOne
     private Video video;
+
+
     private String uuid;
 
 
@@ -22,9 +25,9 @@ public class VideoLike {
         return commitTime;
     }
 
-    public User getWriter() {
+    /*public User getWriter() {
         return liker;
-    }
+    }*/
 
     public Video getVideo() {
         return video;

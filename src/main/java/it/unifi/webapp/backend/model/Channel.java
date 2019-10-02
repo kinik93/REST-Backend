@@ -7,14 +7,18 @@ import java.util.List;
 @Table(name = "Channel")
 public class Channel {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private String uuid;
+
+    @OneToOne
     private User owner;
-    private List<Video> channelVideos;
-    private List<User> subscribers;
-    private List<User> observers;
+
+    @OneToMany
+    private Video channelVideos;
+
+    @OneToMany
+    private User subscribers;
+
+    @OneToMany
+    private User observers;
 
 
 
@@ -22,7 +26,7 @@ public class Channel {
         return owner;
     }
 
-    public List<Video> getChannelVideos() {
+    /*public List<Video> getChannelVideos() {
         return channelVideos;
     }
 
@@ -31,13 +35,7 @@ public class Channel {
     }
     public List<User> getObservers() {
         return observers;
-    }
+    }*/
 
-    public String getUuid() {
-        return uuid;
-    }
 
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
-    }
 }
