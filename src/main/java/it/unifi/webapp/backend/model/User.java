@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "User")
-public class User {
+public class User extends BaseEntity{
 
 
     private String username;

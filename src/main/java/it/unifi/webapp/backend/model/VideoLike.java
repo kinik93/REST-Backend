@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 
 @Entity
 @Table(name="VideoLike")
-public class VideoLike {
+public class VideoLike extends BaseEntity{
 
 
     private Timestamp commitTime;

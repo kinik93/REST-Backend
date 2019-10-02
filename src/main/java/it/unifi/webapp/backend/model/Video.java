@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "Video")
-public class Video {
+public class Video extends BaseEntity{
 
 
     private String name;
@@ -15,7 +15,7 @@ public class Video {
     @OneToMany
     private VideoLike likes;
 
-    
+
 //    private List<VideoLike> likes;
 //
 //    //This is something like a payload for our purposes

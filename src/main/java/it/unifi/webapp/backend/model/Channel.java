@@ -5,7 +5,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "Channel")
-public class Channel {
+public class Channel extends BaseEntity{
 
 
     @OneToOne
