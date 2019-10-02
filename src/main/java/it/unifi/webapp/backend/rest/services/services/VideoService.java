@@ -47,10 +47,10 @@ public class VideoService {
         entityManager.close();
         factory.close();*/
 
-        User tmp = new User();
-        tmp.setUsername("ciao");
-        tmp.setUuid(UUID.randomUUID().toString());
-        userDao.save(tmp);
+//        User tmp = new User();
+//        tmp.setUsername("ciao");
+//        tmp.setUuid(UUID.randomUUID().toString());
+//        userDao.save(tmp);
 
         return "ciao";
     }
