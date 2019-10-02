@@ -16,13 +16,14 @@ public class Video extends BaseEntity{
     private List<VideoLike> likes;
 
 
-//    private List<VideoLike> likes;
-//
-//    //This is something like a payload for our purposes
+
+
+    //This is something like a payload for our purposes
     private String videoDescriptor;
 //
 //
-    public Video(String name, String videoDescriptor) {
+    public Video(String uuid, String name, String videoDescriptor) {
+        super(uuid);
         this.name = name;
         this.videoDescriptor = videoDescriptor;
     }

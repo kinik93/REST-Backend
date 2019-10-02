@@ -8,6 +8,9 @@ import it.unifi.webapp.backend.model.User;
 import it.unifi.webapp.backend.model.Video;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import it.unifi.webapp.backend.dao.VideoDao;
+import java.util.*;
+import javax.transaction.Transactional;
 
 import java.util.UUID;
 
@@ -15,12 +18,12 @@ import java.util.UUID;
 public class VideoService {
 
     @Inject
-    private UserDao userDao;
+    private VideoDao videoDao;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String ping(){
-        Video video = new Video("Shallow", "Tell me something girl...");
+        Video video = new Video(UUID.randomUUID().toString(),"Shallow", "Tell me something girl...");
         Gson gsonBuilder = new GsonBuilder().create();
         String jsonResp = gsonBuilder.toJson(video);
         return jsonResp;
@@ -29,7 +32,10 @@ public class VideoService {
     @GET
     @Path("/prova")
     @Produces(MediaType.TEXT_PLAIN)
+    @Transactional
     public String prova(){
+        Video video = new Video(UUID.randomUUID().toString(),"Shallow", "Tell me something girl...");
+        videoDao.save(video);
         /*EntityManagerFactory factory = Persistence.createEntityManagerFactory("myServiceUnit");
         EntityManager entityManager = factory.createEntityManager();
 
