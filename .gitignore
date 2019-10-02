@@ -16,4 +16,4 @@
 .history/*
 
 # Maven
-.target/
+target/
