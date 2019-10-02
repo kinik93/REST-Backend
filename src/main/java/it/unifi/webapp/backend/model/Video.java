@@ -10,10 +10,10 @@ public class Video extends BaseEntity{
     private String name;
 
     @OneToMany
-    private VideoComment comments;
+    private List<VideoComment> comments;
 
     @OneToMany
-    private VideoLike likes;
+    private List<VideoLike> likes;
 
 
 //    private List<VideoLike> likes;

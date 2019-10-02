@@ -15,8 +15,5 @@
 !.vscode/extensions.json
 .history/*
 
-<<<<<<< HEAD
-=======
 # Maven
->>>>>>> 377e72ecc7b3956348d1a8b4deb3c60a247e3afd
 target/

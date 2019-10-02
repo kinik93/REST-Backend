@@ -12,13 +12,13 @@ public class Channel extends BaseEntity{
     private User owner;
 
     @OneToMany
-    private Video channelVideos;
+    private List<Video> channelVideos;
 
     @OneToMany
-    private User subscribers;
+    private List<User> subscribers;
 
     @OneToMany
-    private User observers;
+    private List<User> observers;
 
 
 
