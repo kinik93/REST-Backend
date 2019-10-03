@@ -18,6 +18,12 @@ public class VideoComment extends BaseEntity{
 
     private String commentText;
 
+    public VideoComment(String uuid, String text, Timestamp time){
+        super(uuid);
+        commentText = text;
+        commitTime = time;
+
+    }
     public Timestamp getCommitTime() {
         return commitTime;
     }

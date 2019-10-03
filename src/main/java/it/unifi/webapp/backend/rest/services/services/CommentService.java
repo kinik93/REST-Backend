@@ -3,26 +3,30 @@ import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
-import it.unifi.webapp.backend.dao.UserDao;
-import it.unifi.webapp.backend.model.User;
-import it.unifi.webapp.backend.model.Video;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import it.unifi.webapp.backend.dao.VideoDao;
-import java.util.*;
+import it.unifi.webapp.backend.dao.VideoCommentDao;
+import it.unifi.webapp.backend.model.VideoComment;
 import javax.transaction.Transactional;
-
+import javax.ws.rs.core.Response;
+import java.sql.Timestamp;
 import java.util.UUID;
 
 @Path("/services/comments")
 public class CommentService {
 
+    @Inject
+    private VideoCommentDao commentDao;
+
     @GET
-    @Path("/postcomment/{}")
+    @Path("/postcomment/{text}")
     @Produces(MediaType.TEXT_PLAIN)
     @Transactional
-    public String prova() {
-        Video video = new Video(UUID.randomUUID().toString(), "Shallow", "Tell me something girl...");
-        videoDao.save(video);
+    public Response commentVideo(@PathParam("text") String text) {
+        VideoComment comment = new VideoComment(UUID.randomUUID().toString(), text, new Timestamp(System.currentTimeMillis()));
+        commentDao.save(comment);
+
+        return Response
+                .ok()
+                .entity("Ok")
+                .build();
     }
 }
