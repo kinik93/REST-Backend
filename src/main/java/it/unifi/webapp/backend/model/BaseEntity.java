@@ -1,5 +1,8 @@
 package it.unifi.webapp.backend.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -10,6 +13,7 @@ public abstract class BaseEntity {
     @GeneratedValue( strategy = GenerationType.IDENTITY )
     private Long id;
 
+    @Expose
     @Column( unique = true )
     private String uuid;
 

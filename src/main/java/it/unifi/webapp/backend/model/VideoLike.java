@@ -16,9 +16,14 @@ public class VideoLike extends BaseEntity{
     @ManyToOne
     private Video video;
 
+    public VideoLike(){}
 
-    private String uuid;
-
+    public VideoLike(String uuid, User liker, Video video){
+        super(uuid);
+        this.liker = liker;
+        this.video = video;
+        this.commitTime = new Timestamp(System.currentTimeMillis());
+    }
 
     public Timestamp getCommitTime() {
         return commitTime;
@@ -32,11 +37,4 @@ public class VideoLike extends BaseEntity{
         return video;
     }
 
-    public String getUuid() {
-        return uuid;
-    }
-
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
-    }
 }

@@ -1,8 +1,13 @@
 package it.unifi.webapp.backend.dao;
+import javax.persistence.NoResultException;
+import javax.persistence.Query;
+import com.mysql.cj.Session;
+
 import java.io.Serializable;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
 
 public abstract class BaseDao<E> implements Serializable {
 
@@ -21,6 +26,18 @@ public abstract class BaseDao<E> implements Serializable {
         return entityManager.find( type, id );
     }
 
+    public String findIdbyUUID( String uuid, String tableName) {
+        Query q = entityManager.createNativeQuery("SELECT id FROM "+tableName+" WHERE uuid=:UUID").setParameter("UUID", uuid);
+
+        try{
+            Object result = q.getSingleResult();
+            return result.toString();
+        }
+        catch(NoResultException nre){
+            return "";
+        }
+
+    }
 
     public void update( E entity ) {
         entityManager.merge( entity );
