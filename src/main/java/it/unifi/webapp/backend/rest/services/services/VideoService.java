@@ -118,7 +118,8 @@ public class VideoService {
                 User usr = usrDao.findById(Long.parseLong(usrID));
                 VideoLike vl = new VideoLike(UUID.randomUUID().toString(), usr, video);
                 boolean exist = videoLikeDao.findLike(usrID, videoId);
-                if(exist){
+
+                if(exist) {
                     videoLikeDao.deleteLike(usrID, videoId);
                     jsBuilder.addField("like", false);
                 }
@@ -126,6 +127,7 @@ public class VideoService {
                     videoLikeDao.save(vl);
                     jsBuilder.addField("like", true);
                 }
+
             }
             return jsBuilder.getJson();
         }
@@ -140,7 +142,7 @@ public class VideoService {
     @Path("/comment")
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
-    public String commentVideo(@QueryParam("videoUUID") String videoUUID, @QueryParam("usrUUID") String usrUUID, @QueryParam("comment") String comment) {
+    public Response commentVideo(@QueryParam("videoUUID") String videoUUID, @QueryParam("usrUUID") String usrUUID, @QueryParam("comment") String comment) {
 
         String videoId = videoDao.findIdbyUUID(videoUUID, "servicesdb.Video");
         Video video = videoDao.findById(Long.parseLong(videoId));
@@ -151,9 +153,10 @@ public class VideoService {
                 User usr = usrDao.findById(Long.parseLong(usrID));
                 VideoComment vc = new VideoComment(UUID.randomUUID().toString(), comment, usr, video);
                 videoCommentDao.save(vc);
+                return Response.ok().build();
             }
         }
-        return Response.ok().toString();
+        return Response.serverError().build();
 
 
     }

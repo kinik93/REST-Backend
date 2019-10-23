@@ -79,9 +79,7 @@ public class ChannelService {
         Channel ch = channelDao.getFromUserid(usrId);
         jsBuilder.createResponse();
         if (ch != null){
-            jsBuilder.addField("status", true);
             jsBuilder.addField("chUUID", ch.getUuid());
-            jsBuilder.addField("subscribers", ch.getSubscribers());
 
         }
         else{
@@ -121,42 +119,28 @@ public class ChannelService {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/subscribe")
     @Transactional
-    public String subChannel(@QueryParam("usrUUID") String usrUUID, @QueryParam("chUUID") String chUUID){
+    public Response subChannel(@QueryParam("usrUUID") String usrUUID, @QueryParam("chUUID") String chUUID){
 
         String chId = channelDao.findIdbyUUID(chUUID, "servicesdb.Channel");
         String usrId = usrDao.findIdbyUUID(usrUUID, "servicesdb.User");
         User usr = usrDao.findById(Long.parseLong(usrId));
         Channel ch = channelDao.findById(Long.parseLong(chId));
         if(usr!= null && ch!=null) {
-            ch.addSubscriber(usr);
-            //ch.addObserver(usr);
-            return new GsonBuilder().create().toJson("OK");
+
+            if(ch.getSubscribers().contains(usr)){
+                ch.rmSubscriber(usr);
+            }
+            else{
+                ch.addSubscriber(usr);
+            }
+
+            return Response.ok().build();
         }
         else{
-            return new GsonBuilder().create().toJson("Error");
+            return Response.serverError().build();
         }
 
     }
 
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("/unsubscribe")
-    @Transactional
-    public String unsubhannel(@QueryParam("usrUUID") String usrUUID, @QueryParam("chUUID") String chUUID){
-
-        String chId = channelDao.findIdbyUUID(chUUID, "servicesdb.Channel");
-        String usrId = usrDao.findIdbyUUID(usrUUID, "servicesdb.User");
-        User usr = usrDao.findById(Long.parseLong(usrId));
-        Channel ch = channelDao.findById(Long.parseLong(chId));
-        if(usr!= null && ch!=null) {
-            ch.rmSubscriber(usr);
-            //ch.addObserver(usr);
-            return new GsonBuilder().create().toJson("OK");
-        }
-        else{
-            return new GsonBuilder().create().toJson("Error");
-        }
-
-    }
 }
 

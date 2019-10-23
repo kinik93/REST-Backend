@@ -12,7 +12,7 @@ import java.sql.Timestamp;
 import java.util.UUID;
 
 
-@Path("/services/subscribe")
+@Path("/services/signup")
 public class SubscribeService {
 
     @Inject
@@ -22,15 +22,8 @@ public class SubscribeService {
     private ChannelDao chDao;
 
 
-    @GET
-    @Path("/")
-    @Produces(MediaType.TEXT_PLAIN)
-    public String ping(){
-        return "Pinga";
-    }
 
     @GET
-    @Path("/signup/")
     @Produces(MediaType.TEXT_PLAIN)
     @Transactional
     public String signUP(@QueryParam("username") String username, @QueryParam("psw") String psw) {

@@ -39,7 +39,7 @@ public class VideoLikeDao extends BaseDao<VideoLike> {
                 .setParameter("likerID", likerID)
                 .setParameter("videoID", videoID);
         try{
-            Object result = q.getSingleResult();
+            Object result = q.executeUpdate();
             return true;
         }
         catch (NoResultException nre){

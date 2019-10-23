@@ -27,16 +27,8 @@ public class UserService {
     @Inject
     private ChannelDao chDao;
 
-    private class ResponseStatus{
-        boolean status;
-        String username;
-        String uuid;
-        private ResponseStatus(String username, boolean status, String uuid){
-            this.status = status;
-            this.username = username;
-            this.uuid = uuid;
-        }
-    }
+    @Inject
+    private JsonResponseBuilder jsBuilder;
 
     @Path("/login")
     @GET
@@ -46,12 +38,19 @@ public class UserService {
 
         Gson gsonBuilder = new GsonBuilder().create();
         User usr = usrDao.findByUsername(username, psw);
-        String jsonResp = gsonBuilder.toJson(new ResponseStatus(username, false, ""));
+        jsBuilder.createResponse();
+        jsBuilder.addField("username", username);
+        jsBuilder.addField("uuid", usr.getUuid());
         if( usr != null){
-            jsonResp = gsonBuilder.toJson(new ResponseStatus(username, true, usr.getUuid()));
+            String chUUID = chDao.getFromUserid(usr.getId().toString()).getUuid();
+            jsBuilder.addField("chUUID", chUUID);
+            jsBuilder.addField("status", true);
         }
+        else{
+            jsBuilder.addField("status", false);
+        }
+        return jsBuilder.getJson();
 
-        return jsonResp;
     }
 
     @Path("/followedChannels")

@@ -48,13 +48,6 @@ public class Video extends BaseEntity{
         return name;
     }
 
-    /*public List<VideoComment> getComments() {
-        return comments;
-    }
-
-    public List<VideoLike> getLikes() {
-        return likes;
-    }*/
 
     public Channel getChannel(){
         return this.channel;
