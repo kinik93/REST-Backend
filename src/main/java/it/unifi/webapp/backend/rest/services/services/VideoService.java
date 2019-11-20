@@ -1,10 +1,8 @@
 package it.unifi.webapp.backend.rest.services.services;
 import javax.inject.Inject;
-import javax.validation.constraints.Null;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
-import com.google.gson.annotations.SerializedName;
 import it.unifi.webapp.backend.dao.*;
 import it.unifi.webapp.backend.model.*;
 import com.google.gson.Gson;
@@ -24,6 +22,8 @@ import java.lang.reflect.Type;
 public class VideoService {
 
 
+    @Inject
+    private LogSystem logSystem;
 
     @Inject
     private VideoDao videoDao;
@@ -49,7 +49,8 @@ public class VideoService {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/watch")
     @Transactional
-    public String watchVideo(@QueryParam("videoUUID") String videoUUID, @QueryParam("usrUUID") String usrUUID){
+    public String watchVideo(@QueryParam("videoUUID") String videoUUID, @QueryParam("usrUUID") String usrUUID, @QueryParam("scenario") String scenario, @QueryParam("id") int id){
+
 
         String videoId = videoDao.findIdbyUUID(videoUUID, "servicesdb.Video");
         Video video = videoDao.findById(Long.parseLong(videoId));
@@ -66,9 +67,15 @@ public class VideoService {
 
 
             }
+            if(scenario!="" && id!=0){
+
+                logSystem.log(scenario, id, "watchVideo");
+            }
             return jsBuilder.getJson();
         }
         jsBuilder.addField("status", "Error");
+
+
         return jsBuilder.getJson();
 
 
@@ -78,12 +85,15 @@ public class VideoService {
     @Path("/search")
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
-    public String searchVideo(@QueryParam("query") String query){
+    public String searchVideo(@QueryParam("query") String query, @QueryParam("scenario") String scenario, @QueryParam("id") int id){
 
         List<Video> results = videoDao.getVideosFromKeyWord(query);
         Type listType = new TypeToken<ArrayList<Video>>() {}.getType();
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create();
         String json = gson.toJson(results, listType);
+        if(scenario!="" && id!=0){
+            logSystem.log(scenario, id, "searchVideo");
+        }
         return json;
 
     }
@@ -106,7 +116,7 @@ public class VideoService {
     @Path("/like")
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
-    public String likeVideo(@QueryParam("videoUUID") String videoUUID, @QueryParam("usrUUID") String usrUUID) {
+    public String likeVideo(@QueryParam("videoUUID") String videoUUID, @QueryParam("usrUUID") String usrUUID, @QueryParam("scenario") String scenario, @QueryParam("id") int id) {
 
         String videoId = videoDao.findIdbyUUID(videoUUID, "servicesdb.Video");
         Video video = videoDao.findById(Long.parseLong(videoId));
@@ -127,8 +137,12 @@ public class VideoService {
                     videoLikeDao.save(vl);
                     jsBuilder.addField("like", true);
                 }
+                if(scenario!="" && id!=0){
+                    logSystem.log(scenario, id, "like");
+                }
 
             }
+
             return jsBuilder.getJson();
         }
         jsBuilder.addField("status", "Error");
@@ -142,7 +156,7 @@ public class VideoService {
     @Path("/comment")
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
-    public Response commentVideo(@QueryParam("videoUUID") String videoUUID, @QueryParam("usrUUID") String usrUUID, @QueryParam("comment") String comment) {
+    public Response commentVideo(@QueryParam("videoUUID") String videoUUID, @QueryParam("usrUUID") String usrUUID, @QueryParam("comment") String comment, @QueryParam("scenario") String scenario, @QueryParam("id") int id) {
 
         String videoId = videoDao.findIdbyUUID(videoUUID, "servicesdb.Video");
         Video video = videoDao.findById(Long.parseLong(videoId));
@@ -153,6 +167,9 @@ public class VideoService {
                 User usr = usrDao.findById(Long.parseLong(usrID));
                 VideoComment vc = new VideoComment(UUID.randomUUID().toString(), comment, usr, video);
                 videoCommentDao.save(vc);
+                if(scenario!="" && id!=0){
+                    logSystem.log(scenario, id, "comment");
+                }
                 return Response.ok().build();
             }
         }

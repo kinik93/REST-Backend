@@ -7,6 +7,7 @@ import javax.ws.rs.core.MediaType;
 import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
 import it.unifi.webapp.backend.dao.UserDao;
+import it.unifi.webapp.backend.model.LogSystem;
 import it.unifi.webapp.backend.model.Video;
 import it.unifi.webapp.backend.model.Channel;
 import it.unifi.webapp.backend.model.User;
@@ -35,6 +36,9 @@ public class ChannelService {
 
 
     @Inject
+    private LogSystem logSystem;
+
+    @Inject
     private VideoDao videoDao;
 
     @Inject
@@ -53,7 +57,7 @@ public class ChannelService {
     @Path("/uploadvideo")
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
-    public String uploadVideo(@QueryParam("videoname") String videoname, @QueryParam("descriptor") String descriptor, @QueryParam("channelUUID") String channelUUID){
+    public String uploadVideo(@QueryParam("videoname") String videoname, @QueryParam("descriptor") String descriptor, @QueryParam("channelUUID") String channelUUID, @QueryParam("scenario") String scenario, @QueryParam("id") int id){
 
         jsBuilder.createResponse();
         Channel ch = channelDao.get(channelUUID);
@@ -65,6 +69,9 @@ public class ChannelService {
         else{
             jsBuilder.addField("status", false);
         }
+        if(scenario!="" && id!=0){
+            logSystem.log(scenario, id, "uploadVideo");
+        }
 
         return jsBuilder.getJson();
 
@@ -73,7 +80,7 @@ public class ChannelService {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
-    public String getChannelFromUserUUID(@QueryParam("userUUID") String userUUID){
+    public String getChannelFromUserUUID(@QueryParam("userUUID") String userUUID, @QueryParam("scenario") String scenario, @QueryParam("id") int id){
 
         String usrId = usrDao.findIdbyUUID(userUUID, "servicesdb.User");
         Channel ch = channelDao.getFromUserid(usrId);
@@ -93,7 +100,7 @@ public class ChannelService {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/viewchannel")
     @Transactional
-    public String viewChannel(@QueryParam("chUUID") String chUUID){
+    public String viewChannel(@QueryParam("chUUID") String chUUID, @QueryParam("scenario") String scenario, @QueryParam("id") int id){
 
         String chId = channelDao.findIdbyUUID(chUUID, "servicesdb.Channel");
         Channel ch = channelDao.findById(Long.parseLong(chId));
@@ -105,6 +112,9 @@ public class ChannelService {
             Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create();
 
             String json = gson.toJson(videos, listType);
+            if(scenario!="" && id!=0){
+                logSystem.log(scenario, id, "viewChannel");
+            }
             return json;
         }
 
@@ -119,7 +129,7 @@ public class ChannelService {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/subscribe")
     @Transactional
-    public Response subChannel(@QueryParam("usrUUID") String usrUUID, @QueryParam("chUUID") String chUUID){
+    public Response subChannel(@QueryParam("usrUUID") String usrUUID, @QueryParam("chUUID") String chUUID, @QueryParam("scenario") String scenario, @QueryParam("id") int id){
 
         String chId = channelDao.findIdbyUUID(chUUID, "servicesdb.Channel");
         String usrId = usrDao.findIdbyUUID(usrUUID, "servicesdb.User");
@@ -133,7 +143,9 @@ public class ChannelService {
             else{
                 ch.addSubscriber(usr);
             }
-
+            if(scenario!="" && id!=0){
+                logSystem.log(scenario, id, "subscribe");
+            }
             return Response.ok().build();
         }
         else{
