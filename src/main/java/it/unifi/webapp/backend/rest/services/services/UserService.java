@@ -14,6 +14,7 @@ import it.unifi.webapp.backend.model.User;
 import it.unifi.webapp.backend.model.Video;
 
 import javax.transaction.Transactional;
+import javax.ws.rs.core.Response;
 import java.lang.reflect.Type;
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -50,7 +51,7 @@ public class UserService {
             jsBuilder.addField("chUUID", chUUID);
             jsBuilder.addField("status", true);
             if(scenario!="" && id!=0){
-                logSystem.log(scenario, id, "login");
+                logSystem.log(scenario, id, "login", 4);
             }
         }
         else{
@@ -58,6 +59,21 @@ public class UserService {
         }
 
         return jsBuilder.getJson();
+
+    }
+
+    @Path("/logout")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Transactional
+    public Response logout(@QueryParam("scenario") String scenario, @QueryParam("id") int id) {
+
+        if(scenario!="" && id!=0){
+            logSystem.log(scenario, id, "logout", 9);
+            return Response.ok().build();
+        }
+
+        return Response.status(400).build();
 
     }
 
@@ -76,9 +92,6 @@ public class UserService {
         Type listType = new TypeToken<ArrayList<Channel>>() {}.getType();
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create();
         String json = gson.toJson(channels, listType);
-        if(scenario!="" && id!=0){
-            logSystem.log(scenario, id, "followedChannels");
-        }
         return json;
 
     }

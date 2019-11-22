@@ -70,7 +70,7 @@ public class ChannelService {
             jsBuilder.addField("status", false);
         }
         if(scenario!="" && id!=0){
-            logSystem.log(scenario, id, "uploadVideo");
+            logSystem.log(scenario, id, "uploadVideo", 8);
         }
 
         return jsBuilder.getJson();
@@ -113,7 +113,7 @@ public class ChannelService {
 
             String json = gson.toJson(videos, listType);
             if(scenario!="" && id!=0){
-                logSystem.log(scenario, id, "viewChannel");
+                logSystem.log(scenario, id, "viewChannel", 3);
             }
             return json;
         }
@@ -144,7 +144,7 @@ public class ChannelService {
                 ch.addSubscriber(usr);
             }
             if(scenario!="" && id!=0){
-                logSystem.log(scenario, id, "subscribe");
+                logSystem.log(scenario, id, "subscribe", 7);
             }
             return Response.ok().build();
         }

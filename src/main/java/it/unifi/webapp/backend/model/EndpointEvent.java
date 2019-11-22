@@ -7,10 +7,16 @@ public class EndpointEvent {
 
     private String useCaseType;
     private long timestamp;
+    private int eventType;
     public EndpointEvent(){}
-    public EndpointEvent(String useCaseType, long timestamp){
+    public EndpointEvent(String useCaseType, long timestamp, int eventType){
         this.useCaseType = useCaseType;
         this.timestamp = timestamp;
+        this.eventType = eventType;
+    }
+
+    public int getEventType() {
+        return eventType;
     }
 
     public String getUseCaseType() {

@@ -38,17 +38,17 @@ public class LogSystem {
         }
     }
 
-    public void log(String scenario, int id, String eventName){
+    public void log(String scenario, int id, String eventName, int eventId){
         SessionScenario ss = this.getSessionScenario(scenario, id);
 
         if (ss != null) {
             long timeS = ss.getStartTime();
-            EndpointEvent ee = new EndpointEvent(eventName, System.currentTimeMillis() - timeS);
+            EndpointEvent ee = new EndpointEvent(eventName, System.currentTimeMillis() - timeS, eventId);
             System.out.println(ee.toString());
             this.getSessionScenario(scenario, id).addEndpointEvent(ee);
         }
         else{
-            System.out.println("No valid scenario started for id: "+id+" this call will not be logged");
+            System.out.println("Event: "+eventName+" but no valid scenario started for id: "+id+", this call will not be logged");
         }
     }
 }

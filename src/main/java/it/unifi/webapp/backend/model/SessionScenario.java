@@ -82,7 +82,7 @@ public class SessionScenario {
     public String toString(){
         String s = "";
         for (EndpointEvent ee : eeList){
-            s+=ee.getUseCaseType()+","+ee.getTimestamp()+",";
+            s+=ee.getEventType()+","+ee.getTimestamp()+",";
         }
         return s;
     }

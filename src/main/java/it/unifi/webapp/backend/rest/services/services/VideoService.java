@@ -69,7 +69,7 @@ public class VideoService {
             }
             if(scenario!="" && id!=0){
 
-                logSystem.log(scenario, id, "watchVideo");
+                logSystem.log(scenario, id, "watchVideo", 2);
             }
             return jsBuilder.getJson();
         }
@@ -92,7 +92,7 @@ public class VideoService {
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create();
         String json = gson.toJson(results, listType);
         if(scenario!="" && id!=0){
-            logSystem.log(scenario, id, "searchVideo");
+            logSystem.log(scenario, id, "searchVideo", 1);
         }
         return json;
 
@@ -138,7 +138,7 @@ public class VideoService {
                     jsBuilder.addField("like", true);
                 }
                 if(scenario!="" && id!=0){
-                    logSystem.log(scenario, id, "like");
+                    logSystem.log(scenario, id, "like", 5);
                 }
 
             }
@@ -168,7 +168,7 @@ public class VideoService {
                 VideoComment vc = new VideoComment(UUID.randomUUID().toString(), comment, usr, video);
                 videoCommentDao.save(vc);
                 if(scenario!="" && id!=0){
-                    logSystem.log(scenario, id, "comment");
+                    logSystem.log(scenario, id, "comment", 6);
                 }
                 return Response.ok().build();
             }
