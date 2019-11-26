@@ -68,6 +68,7 @@ public class UserService {
     @Transactional
     public Response logout(@QueryParam("scenario") String scenario, @QueryParam("id") int id) {
 
+        System.out.println(id);
         if(scenario!="" && id!=0){
             logSystem.log(scenario, id, "logout", 9);
             return Response.ok().build();

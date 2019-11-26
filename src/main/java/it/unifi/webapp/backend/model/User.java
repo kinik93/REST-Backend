@@ -1,13 +1,16 @@
 package it.unifi.webapp.backend.model;
 
+import com.google.gson.annotations.Expose;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "User")
 public class User extends BaseEntity{
 
-
+    @Expose
     private String username;
+
     private String psw;
 
     public User(){}

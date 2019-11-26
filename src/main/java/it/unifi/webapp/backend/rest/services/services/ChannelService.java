@@ -78,6 +78,47 @@ public class ChannelService {
     }
 
     @GET
+    @Path("/deletevideo")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Transactional
+    public Response deleteVideo(@QueryParam("videoUUID") String videoUUID, @QueryParam("usrUUID") String usrUUID){
+
+        String usrId = usrDao.findIdbyUUID(usrUUID, "servicesdb.User");
+        Channel ch = channelDao.getFromUserid(usrId);
+        if (ch != null){
+            Video vid = videoDao.findById(Long.parseLong(videoDao.findIdbyUUID(videoUUID, "servicesdb.Video")));
+            if(vid != null){
+                if(vid.getChannel().getId() == ch.getId()){
+                    videoDao.remove(vid);
+                    return Response.ok().build();
+                }
+            }
+
+        }
+        return Response.status(400).build();
+
+    }
+
+    @GET
+    @Path("/checkSubscription")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Transactional
+    public String checkSubscription(@QueryParam("userUUID") String usrUUID, @QueryParam("channelUUID") String channelUUID){
+
+        jsBuilder.createResponse();
+        Channel ch = channelDao.get(channelUUID);
+
+        if(usrUUID != ""){
+            String usrID = usrDao.findIdbyUUID(usrUUID, "servicesdb.User");
+            boolean isSubscribed = channelDao.findSubscriber(ch.getId().toString(), usrID);
+            jsBuilder.addField("subscribe", isSubscribed);
+        }
+
+        return jsBuilder.getJson();
+
+    }
+
+    @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
     public String getChannelFromUserUUID(@QueryParam("userUUID") String userUUID, @QueryParam("scenario") String scenario, @QueryParam("id") int id){
@@ -102,24 +143,46 @@ public class ChannelService {
     @Transactional
     public String viewChannel(@QueryParam("chUUID") String chUUID, @QueryParam("scenario") String scenario, @QueryParam("id") int id){
 
-        String chId = channelDao.findIdbyUUID(chUUID, "servicesdb.Channel");
-        Channel ch = channelDao.findById(Long.parseLong(chId));
-        List<Video> videos = videoDao.getVideosFromChannelId(Long.parseLong(chId));
-        ch.setChannelVideos(videos);
-        jsBuilder.createResponse();
-        if (ch != null){
-            Type listType = new TypeToken<ArrayList<Video>>() {}.getType();
-            Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create();
+        if(chUUID!="") {
+            String chId = channelDao.findIdbyUUID(chUUID, "servicesdb.Channel");
+            Channel ch = channelDao.findById(Long.parseLong(chId));
+            List<Video> videos = videoDao.getVideosFromChannelId(Long.parseLong(chId));
+            ch.setChannelVideos(videos);
+            jsBuilder.createResponse();
+            if (ch != null) {
+                Type listType = new TypeToken<ArrayList<Video>>() {
+                }.getType();
+                Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create();
 
-            String json = gson.toJson(videos, listType);
-            if(scenario!="" && id!=0){
-                logSystem.log(scenario, id, "viewChannel", 3);
+                String json = gson.toJson(videos, listType);
+                if (scenario != "" && id != 0) {
+                    logSystem.log(scenario, id, "viewChannel", 3);
+                }
+                return json;
             }
-            return json;
         }
 
         else{
             jsBuilder.addField("status", false);
+        }
+        return jsBuilder.getJson();
+
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/getownername")
+    @Transactional
+    public String getOwnerName(@QueryParam("chUUID") String chUUID){
+
+        String chId = channelDao.findIdbyUUID(chUUID, "servicesdb.Channel");
+        Channel ch = channelDao.findById(Long.parseLong(chId));
+        jsBuilder.createResponse();
+        if (ch != null){
+            jsBuilder.addField("owner", ch.getOwner().getUsername());
+        }
+        else{
+            jsBuilder.addField("owner", null);
         }
         return jsBuilder.getJson();
 
