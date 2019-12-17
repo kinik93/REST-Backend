@@ -27,12 +27,6 @@ import java.util.UUID;
 public class ChannelService {
 
 
-    private class ResponseStatus{
-        boolean status;
-        private ResponseStatus(boolean status){
-            this.status = status;
-        }
-    }
 
 
     @Inject

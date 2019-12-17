@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import it.unifi.webapp.backend.dao.ChannelDao;
+import it.unifi.webapp.backend.dao.SubscriberDao;
 import it.unifi.webapp.backend.dao.UserDao;
 import it.unifi.webapp.backend.model.Channel;
 import it.unifi.webapp.backend.model.LogSystem;
@@ -19,6 +20,7 @@ import java.lang.reflect.Type;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Path("/services/users")
 public class UserService {
@@ -34,6 +36,27 @@ public class UserService {
 
     @Inject
     private LogSystem logSystem;
+
+    @Inject
+    private SubscriberDao subDao;
+
+
+    @Path("/signup")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    @Transactional
+    public Response signUP(@QueryParam("username") String username, @QueryParam("psw") String psw) {
+
+        if(username != null && psw != null) {
+            User user = new User(UUID.randomUUID().toString(), username, psw);
+            Channel ch = new Channel(UUID.randomUUID().toString(), user);
+            subDao.save(user);
+            chDao.save(ch);
+            return Response.ok().build();
+        }
+        return Response.serverError().build();
+    }
+
 
     @Path("/login")
     @GET
