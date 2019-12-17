@@ -44,9 +44,9 @@ public class UserService {
         Gson gsonBuilder = new GsonBuilder().create();
         User usr = usrDao.findByUsername(username, psw);
         jsBuilder.createResponse();
-        jsBuilder.addField("username", username);
-        jsBuilder.addField("uuid", usr.getUuid());
         if( usr != null){
+            jsBuilder.addField("username", username);
+            jsBuilder.addField("uuid", usr.getUuid());
             String chUUID = chDao.getFromUserid(usr.getId().toString()).getUuid();
             jsBuilder.addField("chUUID", chUUID);
             jsBuilder.addField("status", true);
@@ -68,8 +68,7 @@ public class UserService {
     @Transactional
     public Response logout(@QueryParam("scenario") String scenario, @QueryParam("id") int id) {
 
-        System.out.println(id);
-        if(scenario!="" && id!=0){
+        if(id!=0){
             logSystem.log(scenario, id, "logout", 9);
             return Response.ok().build();
         }

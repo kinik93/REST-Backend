@@ -9,17 +9,15 @@ import javax.persistence.Query;
 
 public class UserDao extends BaseDao<User>{
 
-    @PersistenceContext(unitName = "myServiceUnit")
-    protected EntityManager em;
 
     public UserDao() {
         super(User.class);
     }
     public void save(User user){
         try{
-            em.getTransaction().begin();
-            em.persist(user);
-            em.getTransaction().commit();
+            entityManager.getTransaction().begin();
+            entityManager.persist(user);
+            entityManager.getTransaction().commit();
         }
         catch (Exception e){
 
@@ -48,7 +46,7 @@ public class UserDao extends BaseDao<User>{
                     .getSingleResult();
             return result;
         }
-        catch (NoResultException e){
+        catch (Exception e){
             return null;
         }
 

@@ -15,7 +15,7 @@ public abstract class BaseDao<E> implements Serializable {
 
     private final Class<E> type;
 
-    @PersistenceContext
+    @PersistenceContext(unitName = "myServiceUnit")
     protected EntityManager entityManager;
 
     public BaseDao( Class<E> type ) {
